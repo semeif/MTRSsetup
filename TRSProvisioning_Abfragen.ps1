@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 #
 #    Prerequisites for Office 365
 #
@@ -379,6 +379,66 @@ function CreateCloudAD {
       }
   }
 }
- Countdown -timespan 3
- Anfangen
+
+function InstMods{
+   $module=$_
+   $moduleinstalled=Get-InstalledModule -Name $_
+   If([string]::IsNullOrEmpty($moduleinstalled))
+  {
+  Write-Host -ForegroundColor Red "$module Modul ist nicht vorhanden"
+
+   Write-Host "Soll es installiert werden?"
+
+  $strInstModule = Read-Host -Prompt '1 für ja, 2 für nein'
  
+  if ($strInstModule -eq 1)
+    {
+      install-module $module
+      $moduleinstalled1=Get-InstalledModule -Name $_
+      If([string]::IsNullOrEmpty($moduleinstalled1))
+       { Write-Host -ForegroundColor Red "$module Installation fehlgeschlagen"
+         Write-Host -ForegroundColor Red "Bitte manuell installieren"
+         Write-host -ForegroundColor yellow "Install-Module $module"
+         }
+    }
+    else
+    {	
+      if ($strInstModule -eq 2)
+        {
+          Write-Host 'PS Module nicht installiert'
+          Start-Sleep -Seconds 3
+          
+        }
+       
+          else
+           {
+                  Clear-Host
+                  Write-Host 'Falsche Eingabe'
+                  Start-Sleep -Seconds 1
+                  Clear-Host
+                  Anfangen
+           }
+            
+        }
+    }
+    else 
+     { Write-Host -ForegroundColor Green "$module installiert"}
+    }
+
+function modcheck{
+  "AzureAD", "ExchangeOnlineManagement", "MicrosoftTeams" | ForEach-Object  {InstMods}
+  }
+
+$param1=$args[0]
+ If([string]::IsNullOrEmpty($param1))
+ {
+ Countdown -timespan 2
+ Anfangen
+ }
+ else {
+    if ($param1 -eq "modcheck")
+    {modcheck}
+    else {
+    Write-Host -ForegroundColor Red "Skript ohne Parameter starten oder mit Paramter modcheck um die PS Module zu prüfen"
+    } 
+  }
