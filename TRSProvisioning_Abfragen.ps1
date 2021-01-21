@@ -53,7 +53,7 @@ function Anfangen {
       if ($strProvisionMode -eq 2)
         {
           Clear-Host
-          Write-Host 'Dann eben nicht, vieleicht beim nächsten mal :-)'
+          Write-Host 'Dann eben nicht, vielleicht beim nächsten mal :-)'
           Start-Sleep -Seconds 3
           Clear-Host
           CleanupAndFail
@@ -436,6 +436,7 @@ function InstMods{
    If([string]::IsNullOrEmpty($moduleinstalled))
         {
         Write-Host -ForegroundColor Red "$module Modul ist nicht vorhanden"
+        Write-Host -ForegroundColor Red "Keine Adminrechte vorhanden um die Installtion zu versuchen, bitte PS mit Adminrechten starten"
         }
     else 
         {
