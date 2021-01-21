@@ -382,7 +382,12 @@ function CreateCloudAD {
 
 function InstMods{
    $module=$_
-   $moduleinstalled=Get-InstalledModule -Name $_
+   $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+   $admin=$currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+   if ( $admin )
+   {
+   #Write-host -ForegroundColor green "Adminrechte vorhanden, Installation kann versucht werden"
+      $moduleinstalled=Get-InstalledModule -Name $_
    If([string]::IsNullOrEmpty($moduleinstalled))
   {
   Write-Host -ForegroundColor Red "$module Modul ist nicht vorhanden"
@@ -423,6 +428,20 @@ function InstMods{
     }
     else 
      { Write-Host -ForegroundColor Green "$module installiert"}
+    }
+    else
+   {
+   #Write-Host -ForegroundColor yellow "Keine Adminrechte, es wird nur geprüft ob die Module vorhanden sind"
+   $moduleinstalled=Get-InstalledModule -Name $_
+   If([string]::IsNullOrEmpty($moduleinstalled))
+        {
+        Write-Host -ForegroundColor Red "$module Modul ist nicht vorhanden"
+        }
+    else 
+        {
+        Write-Host -ForegroundColor Green "$module installiert"
+        }
+}
     }
 
 function modcheck{
