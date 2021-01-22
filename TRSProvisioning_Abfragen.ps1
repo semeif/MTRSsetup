@@ -235,7 +235,7 @@ function Licensecheck {
       }
         else
         {
-        Write-Host -ForegroundColor Red 'Schonmal über Lizenzen nachgedacht, Du Honk!?'
+        Write-Host -ForegroundColor Red 'Es sind leider keine Meeting Room Lizenzen vorhanden.'
         Pause
         CleanupAndFail
 
