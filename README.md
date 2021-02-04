@@ -1,6 +1,15 @@
 # Microsoft Teams Room account setup
 Powershell Skript zur Erstellung und Einstellung eines Teams Room System Kontos
 
+# First draft of German/English version available:
+This version checks the Windows client language. If it is "de-DE" the script will run in German. 
+All other language settings force the script to run in English.
+If your Client language is not set to "de-DE" but you want to run the script in German 
+you can change the $Language variable manually to "de-DE".
+We also added the option to set the correct usage location for the MTR account.
+You can find the new Version here:
+https://github.com/semeif/TRSsetup/blob/main/MTR_Provisioning_En_De.ps1
+
 # Erstellung eines MTR Accounts
 Skript ohne Parameter starten zur Erstellung eines MTR accounts
 
@@ -8,6 +17,8 @@ Skript ohne Parameter starten zur Erstellung eines MTR accounts
 Skript mit Parameter modcheck "TRSprovisioning.ps modcheck" starten.
 Das führt eine Prüfung ob die benötigten PS Module da sind und installiert die Module ggf.
 Darauf achten das dafür Administratorrechte notwendig sind
+
+
 
 
 
