@@ -556,9 +556,7 @@ Licensecheck
       #New-DistributionGroup -RoomList -Name 'Videoräume' 
       #Add-DistributionGroupMember –Identity Videoräume -Member Alias_Der_Mailbox
     }
-    catch
-    {
-    }
+
     if ($Error)
     {
       $Error.Clear()
