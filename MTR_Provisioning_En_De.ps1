@@ -47,7 +47,7 @@ $status = @{}
 
 $Culture = Get-Culture
 $Language = $Culture.Name
-
+#$Language = "en-US"
 
 function Anfangen {
   Clear-Host
@@ -228,7 +228,7 @@ function RegistrarPool {
         Write-Host -ForegroundColor Green "The Meetingroom $strDisplayName has been created"           
         }
       Pause
-      Anfangen
+     RoomList
       }
     }
 function Connect2AzureAD {
@@ -238,6 +238,10 @@ function Connect2AzureAD {
     if ($Language -eq "de-DE")
     {
     Write-Host '***************************'
+    Write-Host '*        Anmeldung        *'
+    Write-Host '***************************'
+    Write-Host ' '
+    Write-Host '***************************'
     Write-Host '      UPN und Passwort     '
     Write-Host ' für Azure AD Admin Konto  '
     Write-Host '          eingeben         '
@@ -246,6 +250,10 @@ function Connect2AzureAD {
     $strAdmin = Read-Host -Prompt "Bitte geben Sie ihr Admin Konto an. Damit werden Sie an allen Konsolen angemeldet"
     }
     else {
+    Write-Host '***************************'
+    Write-Host '*         Sign-in         *'
+    Write-Host '***************************'
+    Write-Host ' '
     Write-Host '***************************'
     Write-Host '   Enter admin UPN and     '
     Write-Host '   password credentials    '
@@ -304,6 +312,7 @@ function Connect2AzureAD {
     Write-Host -ForegroundColor Green 'Connected to CS Online PowerShell'
       }
       Countdown -timespan 3
+      Anfangen
 
   }
   catch
@@ -316,6 +325,131 @@ function Connect2AzureAD {
     }
   }
 }
+
+function RoomList {
+
+#Optionale Raumliste erstellen
+#Create optional room list
+
+if ($Language -eq "de-DE")
+{
+    Write-Host 'Ist bereits eine Raumliste vorhanden?'
+}
+else {
+
+  Write-Host 'Is a suitabele room list available?' 
+
+}
+if ($Language -eq "de-DE")
+{
+  $strRoomlist = Read-Host -Prompt '1 für ja, 2 für nein'
+}
+else {
+  $strRoomlist = Read-Host -Prompt '1 yes, 2 no'
+}
+
+if ($strRoomlist -eq 2) {
+    if ($Language -eq "de-DE"){
+
+        Write-Host 'Soll eine Raumliste erstellt werden?'
+    }
+    else {
+
+        Write-Host 'Would you like to create one?' 
+
+    }
+    if ($Language -eq "de-DE"){
+
+        $strRoomliststart = Read-Host -Prompt '1 für ja, 2 für nein'
+    }
+    else {
+        $strRoomliststart = Read-Host -Prompt '1 yes, 2 no'
+    }
+    if ($strRoomliststart -eq 1) {
+        if ($Language -eq "de-DE"){
+
+            $strRoomlistname = Read-Host -Prompt 'Welchen Namen soll die Raumliste erhalten?'
+        }
+        else {
+            $strRoomlistname = Read-Host -Prompt 'Please enter the name for the new roomlist'
+        }
+        #Erstellen der neuen RaumListe und zuweisen des gerade erstellten Raums
+        #RoomList creation and assignment of created room 
+        New-DistributionGroup -RoomList -Name $strRoomlistname 
+        Add-DistributionGroupMember –Identity $strRoomlistname -Member $strUpn
+
+        if ($Language -eq "de-DE"){
+
+            Write-Host "Die Raumliste mit dem Namen $strRoomlistname wurde erstellt und der Meetingraum $strDisplayName hinzugefügt."
+        }
+        else {
+    
+            Write-Host "Roomlist $strRoomlistname has been created and meetingroom $strDisplayName has been assigned." 
+    
+        }
+        Pause
+        Anfangen
+    }
+    else {
+        Anfangen
+
+    }
+}
+if ($strRoomlist -eq 1) {
+    
+
+
+
+    if ($Language -eq "de-DE"){
+        #Anzeigen der verfügbaren RaumListen und zuweisen des gerade erstellten Raums.
+        #Get available RoomLists and assignment of created room. 
+
+        Write-Host "Folgende Raumlisten sind verfügbar:"
+        get-distributiongroup -resultsize unlimited | Select-Object name, RecipientTypeDetails | Where-Object RecipientTypeDetails -EQ "RoomList"
+        Write-host " "
+        $strPickRoom = Read-Host -Prompt 'Raumname für die Zuweisung:'
+    }
+
+    else {
+    
+        Write-Host "The following room Lists are Available"
+        get-distributiongroup -resultsize unlimited | Select-Object name, RecipientTypeDetails | Where-Object RecipientTypeDetails -EQ "RoomList"
+        Write-host " "
+        $strPickRoom = Read-Host -Prompt 'Please enter Room name to assign:'
+    }
+
+        Add-DistributionGroupMember –Identity $strPickRoom -Member $strUpn
+
+    if ($Language -eq "de-DE"){
+
+        Write-Host "Die Raumliste mit dem Namen $strPickRoom wurde erstellt und der Meetingraum $strDisplayName hinzugefügt."
+    }
+    else {
+
+        Write-Host "Roomlist $strPickRoom has been created and meetingroom $strDisplayName has been assigned." 
+
+    }
+    pause
+    Anfangen
+}
+    else
+    {
+           Clear-Host
+           if ($Language -eq "de-DE")
+             {
+             Write-Host 'Falsche Eingabe'
+             }
+           else {
+             Write-Host 'Wrong input'
+           }
+           Start-Sleep -Seconds 1
+           Clear-Host
+    Pause
+    RoomList
+
+}
+}
+
 
 function Licensecheck {
 
@@ -378,7 +512,7 @@ function Licensecheck {
 
 function CreateCloudAD {
   
-Connect2AzureAD
+
 
 
 
@@ -552,9 +686,7 @@ Licensecheck
       #Ab zur nächsten Funktion
       #Calling next function
       RegistrarPool
-      #Raumliste erstellen
-      #New-DistributionGroup -RoomList -Name 'Videoräume' 
-      #Add-DistributionGroupMember –Identity Videoräume -Member Alias_Der_Mailbox
+
     }
 
     if ($Error)
@@ -647,7 +779,7 @@ function InstMods{
             }
                   Start-Sleep -Seconds 1
                   Clear-Host
-                  Anfangen
+                  Connect2AzureAD
            }
             
         }
@@ -699,11 +831,14 @@ $param1=$args[0]
  If([string]::IsNullOrEmpty($param1))
  {
  Countdown -timespan 2
- Anfangen
+ Connect2AzureAD
  }
  else {
     if ($param1 -eq "modcheck")
     {modcheck}
+    if ($param1 -eq "anfangen"){
+    anfangen
+    }
     else {
         if ($Language -eq "de-DE"){
             Write-Host -ForegroundColor Red "Skript ohne Parameter starten oder mit Paramter modcheck um die PS Module zu prüfen"
