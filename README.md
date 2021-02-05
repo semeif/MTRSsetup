@@ -1,5 +1,18 @@
 # Microsoft Teams Room account setup
-Powershell Skript zur Erstellung und Einstellung eines Teams Room System Kontos
+PowerShell script for creation and configuration of Microsoft Teams Room accounts 
+Features:
+-	Usage of Azure AD PowerShell Module instead of old MSOL Module
+-	MFA Support
+-	Logon to all 3 Modules (Azure AD, Teams, and Exchange)
+-	Module and Admin Check if all PowerShell Modules are installed
+-	Module Installation if they are missing
+-	Check if MTR License is available and unassigned so it can be used
+-	Setting correct Calendar Setting Auto Accept / Auto Answer
+-	Waiting for RegistrarPool creation (can take some time) and Room assignment
+New:
+-	Room List Creation and Room assignment
+-	Pick from available Room Lists and assign new meeting room
+
 
 # First draft of German/English version available:
 This version checks the Windows client language. If it is "de-DE" the script will run in German. 
