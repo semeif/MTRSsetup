@@ -26,7 +26,7 @@ https://github.com/semeif/TRSsetup/blob/main/MTR_Provisioning_En_De.ps1
 # Create an MTR Account
 Start the script without a Parameter to create a Microsoft teams room system account.
 
-# check whether the needed modules are installed
+# do a module check
 start the sciript with the parameter modcheck, e.g. "TRSprovisioning.ps modcheck"
 If the modules are not installed, the script tries to install the modules.
 Keep in mind to start PS with admin privileges.
