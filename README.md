@@ -23,14 +23,13 @@ We also added the option to set the correct usage location for the MTR account.
 You can find the new Version here:
 https://github.com/semeif/TRSsetup/blob/main/MTR_Provisioning_En_De.ps1
 
-# Erstellung eines MTR Accounts
-Skript ohne Parameter starten zur Erstellung eines MTR accounts
+# Create an MTR Account
+Start the script without a Parameter to create a Microsoft teams room system account.
 
-# Check auf die benötigten Powershell Modulle
-Skript mit Parameter modcheck "TRSprovisioning.ps modcheck" starten.
-Das führt eine Prüfung ob die benötigten PS Module da sind und installiert die Module ggf.
-Darauf achten das dafür Administratorrechte notwendig sind
-
+# check whether the needed modules are installed
+start the sciript with the parameter modcheck, e.g. "TRSprovisioning.ps modcheck"
+If the modules are not installed, the script tries to install the modules.
+Keep in mind to start PS with admin privileges.
 
 
 
