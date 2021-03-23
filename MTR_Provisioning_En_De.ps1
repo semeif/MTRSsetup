@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 #    Powershell Script for creating Microsoft Teams Room accounts
 #
 #    Powershell Skript zur Erstellung von Microsoft Teams Room Konten
@@ -16,7 +16,7 @@
 #    MicrosoftTeams install-module microsoftteams
 #    EXO            install-Module ExchangeOnlineManagement
 #    AAD            install-module AzureAd
-#   
+#   If you are using Microsoft Teams PowerShell Module older than 2.0.0 you need to remove the comment (#) in line 282, in lines 295-302 and line 308-316
 ###############################################################################
 
 #
@@ -277,8 +277,9 @@ function Connect2AzureAD {
       
       #An Microsoft Teams PowerShell anmelden
       #Connect to Microsoft Teams PowerShell
+      #If you are using MSTeams Powershell Module older than 2.0.0 remove # before -AccountId
 
-      Connect-MicrosoftTeams -AccountId $strAdmin
+      Connect-MicrosoftTeams #-AccountId $strAdmin
       if ($Language -eq "de-DE"){
       Write-Host -ForegroundColor Green 'Verbindung zu Microsoft Teams Powershell hergestellt'
       }
@@ -289,29 +290,30 @@ function Connect2AzureAD {
 
       #Verbindung zu Exchange Online herstellen
       #Connect to Exchange Online PowerShell
+      #If you are using MSTeams Powershell Module older than 2.0.0 uncomment lines 295-302 and line 308-316
 
-      Connect-ExchangeOnline -UserPrincipalName $strAdmin
-      if ($Language -eq "de-DE"){
-      Write-Host -ForegroundColor Green 'Verbindung zu Exchange Online PowerShell hergestellt'
-      }
-      else {
-      Write-Host -ForegroundColor Green 'Connected to Exchange Online PowerShell'
-      }
-      Countdown -timespan 3
+      #Connect-ExchangeOnline -UserPrincipalName $strAdmin
+      #if ($Language -eq "de-DE"){
+      #Write-Host -ForegroundColor Green 'Verbindung zu Exchange Online PowerShell hergestellt'
+      #}
+      #else {
+      #Write-Host -ForegroundColor Green 'Connected to Exchange Online PowerShell'
+      #}
+      #Countdown -timespan 3
 
       #Verbindung zu CS Online PowerShell herstellen
       #Connect to CS online PowerShell
 
       Import-Module MicrosoftTeams
-      $sfbSession = New-CsOnlineSession
-      Import-PSSession $sfbSession
-      if ($Language -eq "de-DE"){
-      Write-Host -ForegroundColor Green 'Verbindung zu CS Online hergestellt'
-      }
-      else {
-    Write-Host -ForegroundColor Green 'Connected to CS Online PowerShell'
-      }
-      Countdown -timespan 3
+      #$sfbSession = New-CsOnlineSession
+      #Import-PSSession $sfbSession
+      #if ($Language -eq "de-DE"){
+      #Write-Host -ForegroundColor Green 'Verbindung zu CS Online hergestellt'
+      #}
+      #else {
+    #Write-Host -ForegroundColor Green 'Connected to CS Online PowerShell'
+      #}
+      #Countdown -timespan 3
       Anfangen
 
   }
