@@ -12,6 +12,8 @@ Features:
 New:
 -	Room List Creation and Room assignment
 -	Pick from available Room Lists and assign new meeting room
+-	Works now with MicrosoftTeams PowerShell module 2.0.0
+  If you are using Microsoft Teams PowerShell Module older than 2.0.0 you need to remove the comment (#) in line 282, in lines 295-302 and line 308-316	
 
 
 # First draft of German/English version available:
@@ -26,7 +28,7 @@ https://github.com/semeif/TRSsetup/blob/main/MTR_Provisioning_En_De.ps1
 # Create an MTR Account
 Start the script without a Parameter to create a Microsoft teams room system account.
 
-# do a module check
+# Do a module check
 start the sciript with the parameter modcheck, e.g. "TRSprovisioning.ps modcheck"
 If the modules are not installed, the script tries to install the modules.
 Keep in mind to start PS with admin privileges.
