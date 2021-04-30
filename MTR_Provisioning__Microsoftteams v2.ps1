@@ -629,7 +629,7 @@ Licensecheck
       #Zuweisen der MeetingRoom Lizenz
       #Assign MTR license
 
-      $planName="MEETING_ROOM"
+      $planName="$availableLicense"
       $License = New-Object -TypeName Microsoft.Open.AzureAD.Model.AssignedLicense
       $License.SkuId = (Get-AzureADSubscribedSku | Where-Object -Property SkuPartNumber -Value $planName -EQ).SkuID
       $LicensesToAssign = New-Object -TypeName Microsoft.Open.AzureAD.Model.AssignedLicenses
@@ -671,7 +671,7 @@ Licensecheck
       #Zuweisen der MeetingRoom Lizenz
       #Assign MTR license
 
-      $planName="MEETING_ROOM"
+      $planName="$availableLicense"
       $License = New-Object -TypeName Microsoft.Open.AzureAD.Model.AssignedLicense
       $License.SkuId = (Get-AzureADSubscribedSku | Where-Object -Property SkuPartNumber -Value $planName -EQ).SkuID
       $LicensesToAssign = New-Object -TypeName Microsoft.Open.AzureAD.Model.AssignedLicenses
