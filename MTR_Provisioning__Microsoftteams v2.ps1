@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 #    Powershell Script for creating Microsoft Teams Room accounts
 #
 #    Powershell Skript zur Erstellung von Microsoft Teams Room Konten
@@ -37,8 +37,10 @@ $script:Text25Stars = '*************************'
 #$script:strUpn = $null
 
 #Setzen der gewünschten Lizenzen, per Standart ist "Meeting_Room" voreingestellt
-#Weiter gehen z.B. ENTERPRISEPREMIUM = O365 E5 oder SPE_E5 = M365 E5
-$script:availableLicense = 'MEETING_ROOM'
+#Weiter gehen z.B. ENTERPRISEPREMIUM = O365 E5, SPE_E5 = M365 E5, MTR Standard = 'MEETING_ROOM' oder MTR Premium = 'MTR_PREM'
+#Set license SKU to assign, standard is "Meeting_Room".
+#Also working: ENTERPRISEPREMIUM = O365 E5, SPE_E5 = M365 E5, MTR Standard = 'MEETING_ROOM' oder MTR Premium = 'MTR_PREM'
+$script:availableLicense = 'MTR_PREM'
 
 $status = @{}
 
@@ -187,7 +189,7 @@ function RegistrarPool {
       #RegistrarPool auslesen
       #Get RegistrarPool
      
-      $strRegPool = (Get-CsTenant).RegistrarPool
+      $strRegPool =  Get-CsOnlineUser -Identity "$strUpn" | Select -Expand RegistrarPool
 
       
 
@@ -302,7 +304,7 @@ function Connect2AzureAD {
       #Verbindung zu CS Online PowerShell herstellen
       #Connect to CS online PowerShell
 
-#      Import-Module MicrosoftTeams
+      Import-Module MicrosoftTeams
 #      $sfbSession = New-CsOnlineSession
 #      Import-PSSession $sfbSession
 #      if ($Language -eq "de-DE"){
